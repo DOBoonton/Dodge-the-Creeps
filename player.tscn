@@ -1,0 +1,69 @@
+[gd_scene load_steps=12 format=3 uid="uid://vbpfuwj4ny35"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_ki7od"]
+[ext_resource type="Texture2D" uid="uid://dnej8i4ib8led" path="res://art/playerGrey_up1.png" id="2_7nqq3"]
+[ext_resource type="Texture2D" uid="uid://boefbob11rckj" path="res://art/playerGrey_up2.png" id="3_sm4cs"]
+[ext_resource type="Texture2D" uid="uid://bdtarju1vxfgv" path="res://art/playerGrey_walk2.png" id="4_1su58"]
+[ext_resource type="Texture2D" uid="uid://ctvmt2w8bia5s" path="res://art/playerGrey_walk1.png" id="5_ga1mt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oiu5d"]
+atlas = ExtResource("2_7nqq3")
+region = Rect2(0, 0, 108, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fv2iv"]
+atlas = ExtResource("3_sm4cs")
+region = Rect2(0, 0, 111, 120)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_214h2"]
+atlas = ExtResource("4_1su58")
+region = Rect2(0, 0, 107, 127)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wrhxw"]
+atlas = ExtResource("5_ga1mt")
+region = Rect2(0, 0, 108, 135)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4qjwv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oiu5d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fv2iv")
+}],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_214h2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wrhxw")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qwsce"]
+radius = 26.0
+height = 66.0
+
+[node name="Player" type="Area2D"]
+position = Vector2(240, 360)
+script = ExtResource("1_ki7od")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_4qjwv")
+animation = &"up"
+frame_progress = 0.0313796
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CapsuleShape2D_qwsce")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
